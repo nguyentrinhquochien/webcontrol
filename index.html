@@ -1,0 +1,169 @@
+<!-- from time import sleep -->
+<!DOCTYPE html>
+<html>
+    <head>
+         <link rel = stylesheet href = "app.css">
+        <meta charset="utf-8">
+        <meta name="generator" content="">
+        <meta name="dcterms.created" content="ST5, 24 thg3 2022 07:11:00 GMT">
+        <meta name="description" content="Design Platform for IoT Laboratory">
+        <meta name="keywords" content="Internet of things, LoraWan, Raspherry Pi 4">
+        <title>Control Website</title>
+    </head>
+    <body>
+        <h2 align = center> 
+            <font color="green">Đào Ngọc Ẩn</font><br />
+        </h2>
+        <div align = center>
+            <p>
+                <font color="red"><b>IoT NHÀ THÔNG MINH</b></font><br />
+            </p>
+            <p>
+                <font color="green">ĐIỀU KHIỂN</font><br />
+                <button onclick="Servo_On()">Mở Quạt</button>
+                <button onclick="Servo_Off()">Tắt Quạt</button>
+                <button onclick="Relay_On()">Mở Cửa</button>
+                <button onclick="Relay_Off()">Đóng Cửa</button>
+                <button onclick="led_On()">Mở đèn</button>
+                <button onclick="led_Off()">Tắt đèn</button>
+                
+            </p>
+        </div>
+        <div align = center>
+            <p>
+                <font color="red">HIỂN THỊ GIÁ TRỊ</font><br />
+                <h4 >
+                    <span class="name">Nhiệt Độ</span>
+                    <span class="value">36</span>
+                    <span class="unit">°C</span>
+                </h4>
+                <h4>
+                    <span class="name">Độ Ẩm</span>
+                    <span class="value">70</span>
+                    <span class="unit">%</span>
+                </h4>
+                <h4>
+                    <span class="name">Ánh Sáng</span>
+                    <span class="value">680</span>
+                    <span class="unit">%</span>
+                </h4>
+
+                <h4>
+                    <span class="name">Mưa</span>
+                    <span class="value">273</span>
+                    <span class="unit">%</span>
+                </h4>
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2416229/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2416229/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2416229/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2416229/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+                <style>
+                    
+                    body {
+                        background-color: #f2f2f2;
+                        font-family: Arial, sans-serif;
+                    }
+                    h2, p, h4 {
+                        margin: 0;
+                        padding: 0;
+                    }
+                    h2 {
+                        color: #ff0000;
+                        margin-bottom: 10px;
+                    }
+                    p {
+                        color: #0000ff;
+                    }
+                    .button {
+                        background-color: #4CAF50; /* Green */
+                        border: none;
+                        color: white;
+                        padding: 10px 20px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 5px;
+                        cursor: pointer;
+                        border-radius: 12px;
+                    }
+                    .button:hover {
+                        background-color: #45a049;
+                    }
+                    .name {
+                        color: #ff0000;
+                    }
+                    .value {
+                        color: #00ff00;
+                    }
+                    .unit {
+                        color: #ff0000;
+                    }
+                </style>
+
+            </p>
+        </div>
+
+        <script>
+            var url = "https://api.thingspeak.com/update?";
+            var params_on1 = "api_key=T8FA86QOK589BRVB&field5=1";
+            var params_off1 = "api_key=T8FA86QOK589BRVB&field5=0";
+            var params_on2 = "api_key=T8FA86QOK589BRVB&field6=1";
+            var params_off2 = "api_key=T8FA86QOK589BRVB&field6=0";
+            var params_on3 = "api_key=T8FA86QOK589BRVB&field7=1";
+            var params_off3 = "api_key=T8FA86QOK589BRVB&field7=0";
+
+            var xhr = new XMLHttpRequest();
+            function Servo_On()
+            {
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(params_on1);
+            }
+            function Servo_Off()
+            {
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(params_off1);
+            }
+            function Relay_On()
+            {
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(params_on2);
+            }
+            function Relay_Off()
+            {
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(params_off2);
+            }
+            function led_On()
+            {
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(params_on3);
+            }
+            function led_Off()
+            {
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(params_off3);
+            }
+        </script>
+        
+        <style>
+            body {
+                background-color: #f2f2f2;
+            }
+            h2 {
+                color: #ff0000;
+            }
+            p {
+                color: #0000ff;
+            }
+
+        </style>
+    </body>
+</html>
